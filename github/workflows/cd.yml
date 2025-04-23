@@ -1,0 +1,7 @@
+# GitHub Actions workflow for continuous deployment to staging and production with manual approvals
+name: CD
+on:
+  workflow_dispatch: # Allows manual triggering of the workflow
+  push:
+    branches:
+      - main

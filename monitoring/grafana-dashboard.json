@@ -1,0 +1,57 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "App Metrics Monitoring",
+    "timezone": "browser",
+    "panels": [
+      {
+        "type": "graph",
+        "title": "CPU Usage",
+        "targets": [
+          {
+            "expr": "rate(node_cpu_seconds_total{mode!='idle'}[5m])",
+            "legendFormat": "{{cpu}}",
+            "refId": "A"
+          }
+        ],
+        "yaxes": [
+          { "format": "percent", "label": "CPU Usage", "logBase": 1 },
+          { "format": "short", "logBase": 1 }
+        ]
+      },
+      {
+        "type": "graph",
+        "title": "Memory Usage",
+        "targets": [
+          {
+            "expr": "node_memory_Active_bytes / node_memory_MemTotal_bytes",
+            "legendFormat": "Memory Usage",
+            "refId": "B"
+          }
+        ],
+        "yaxes": [
+          { "format": "percent", "label": "Memory Usage", "logBase": 1 },
+          { "format": "short", "logBase": 1 }
+        ]
+      },
+      {
+        "type": "graph",
+        "title": "HTTP Requests",
+        "targets": [
+          {
+            "expr": "rate(http_requests_total[5m])",
+            "legendFormat": "Requests",
+            "refId": "C"
+          }
+        ],
+        "yaxes": [
+          { "format": "short", "label": "Requests per Second", "logBase": 1 },
+          { "format": "short", "logBase": 1 }
+        ]
+      }
+    ],
+    "schemaVersion": 16,
+    "version": 0,
+    "refresh": "5s"
+  }
+}

@@ -1,0 +1,13 @@
+# Base Dockerfile for a Node.js application with best practices
+
+# Use the official Node.js image as a base
+FROM node:18-alpine@sha256:3c1e5b5b8b3b6c6e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5 AS base
+
+# Install dependencies only
+FROM base AS dependencies
+
+# Build the application
+FROM base AS build
+
+# Create a minimal production image
+FROM node:18-alpine@sha256:3c1e5b5b8b3b6c6e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5 AS production

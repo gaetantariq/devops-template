@@ -1,0 +1,24 @@
+groups:
+  - name: cpu-alerts
+    rules:
+      # Alert for high CPU usage
+      - alert: HighCPUUsage
+        expr: avg(rate(node_cpu_seconds_total{mode!="idle"}[5m])) by (instance) > 0.8
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage detected on instance {{ $labels.instance }}"
+          description: "CPU usage is above 80% for the last 5 minutes on instance {{ $labels.instance }}."
+
+  - name: service-availability-alerts
+    rules:
+      # Alert for service unavailability
+      - alert: ServiceUnavailable
+        expr: up{job="your-service-name"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Service {{ $labels.job }} is unavailable"
+          description: "The service {{ $labels.job }} is down for the last 1 minute."

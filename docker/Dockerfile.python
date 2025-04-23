@@ -1,0 +1,22 @@
+# Base Dockerfile for a Python application with best practices
+
+# Use the official Python image as a base
+FROM python:3.11-slim as base
+WORKDIR /app
+
+# Install dependencies in a separate stage
+FROM base as dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Build the application
+FROM base as build
+COPY --from=dependencies /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+COPY . .
+RUN python setup.py install
+
+# Create a minimal production image
+FROM python:3.11-slim as production
+WORKDIR /app
+COPY --from=build /app /app
+CMD ["python", "app.py"]
